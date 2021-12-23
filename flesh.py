@@ -33,7 +33,7 @@ photo_preview_link_template = "https://live.staticflickr.com/{server_id}/{photo_
 photo_webpage_link_template = "https://www.flickr.com/photos/{user_id}/{photo_id}"
 
 if album_id is not None:
-    photo_webpage_link_template = photo_webpage_link_template + "in/album-{album_id}/".format(album_id=album_id)
+    photo_webpage_link_template = photo_webpage_link_template + "/in/album-{album_id}/".format(album_id=album_id)
 
 # main
 print("making request to: " + flickr_call)
