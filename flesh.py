@@ -2,14 +2,16 @@ import requests
 import argparse
 
 parser = argparse.ArgumentParser(description="FLickr turnEd Static Html cli")
-parser.add_argument("user", metavar="USER_ID")
-parser.add_argument("-a", "--album", dest="album")
-parser.add_argument("-k", "--key", dest="key")
+parser.add_argument("user", metavar="USER_ID", help="your user id")
+parser.add_argument("-a", "--album", dest="album", help="get from specific album/photoset instead of entire photostream")
+parser.add_argument("-k", "--key", dest="key", help="your api key")
+parser.add_argument("-i", "--inverse", action="store_true", dest="inverse", help="inverses order of the pictures in the generated gallery")
 args = parser.parse_args()
 
 user_id = args.user
 album_id = args.album
 key = args.key
+inverse = args.inverse
 
 if key is None:
     with open("./key", "r") as f:
@@ -60,7 +62,10 @@ for photo in photos:
         photo_preview = photo_preview_link
     )
 
-    gallery += photo_entry
+    if inverse:
+        gallery = photo_entry + gallery
+    else:
+        gallery += photo_entry
 
 print("dumping gallery")
 with open("gallery.html", "w") as f:
